@@ -10,10 +10,28 @@
 	}
 </style>
 
-<script src="jquery-1.10.2.min.js"></script>
-<script src="opencpu-0.4.js"></script>  
-  // <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  // <script type='text/javascript' src="https://rawgithub.com/jeroenooms/opencpu.js/master/opencpu-0.4.js"></script>
+<!-- <script src="jquery-1.10.2.min.js"></script>
+<script src="opencpu-0.4.js"></script>   -->
+  <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type='text/javascript' src="https://rawgithub.com/jeroenooms/opencpu.js/master/opencpu-0.4.js"></script>
+  <script type="text/javascript">
+    //set CORS to call "stocks" package on public server
+    ocpu.seturl("//public.opencpu.org/ocpu/library/stocks/R")
+
+    //call R function: stocks::smoothplot(ticker=ticker)
+    $("#submitbutton").click(function(){
+        var ticker = $("#ticker").val();    
+        var req = $("#plotdiv").rplot("smoothplot", {
+            ticker : ticker,
+            from : "2013-01-01"
+        });
+        
+        //optional
+        req.fail(function(){
+            alert("R returned an error: " + req.responseText); 
+        });
+    });
+   </script>
 
 </head>
 
@@ -30,25 +48,6 @@
 
 <!-- some text, not part of the app -->
 <p>This is a demo of the <code>rplot</code> function in the <a href="http://public.opencpu.org/jslib.html">opencpu.js</a> library. It calls the R function <a href="http://public.opencpu.org/ocpu/library/stocks/R/smoothplot">smoothplot</a> in the R package <a href="http://public.opencpu.org/ocpu/library/stocks/R/">stocks</a>.</p>
-
-<script type="text/javascript">
-//set CORS to call "stocks" package on public server
-ocpu.seturl("//public.opencpu.org/ocpu/library/stocks/R")
-
-//call R function: stocks::smoothplot(ticker=ticker)
-$("#submitbutton").click(function(){
-    var ticker = $("#ticker").val();    
-    var req = $("#plotdiv").rplot("smoothplot", {
-        ticker : ticker,
-        from : "2013-01-01"
-    });
-    
-    //optional
-    req.fail(function(){
-        alert("R returned an error: " + req.responseText); 
-    });
-});
-</script>
 
 </body>
 
