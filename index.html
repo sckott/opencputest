@@ -12,7 +12,8 @@
 
     <script src="jquery-1.10.2.min.js"></script>
     <script src="opencpu-0.4.js"></script>  
-      <script type="text/javascript">
+      <script type="text/javascript">//<![CDATA[ 
+        window.onload=function(){
         //set CORS to call "stocks" package on public server
         ocpu.seturl("//public.opencpu.org/ocpu/library/stocks/R")
 
@@ -29,6 +30,7 @@
                 alert("R returned an error: " + req.responseText); 
             });
         });
+        }//]]> 
        </script>
 
 </head>
@@ -41,7 +43,7 @@
 
 <button id="submitbutton" type="button">Submit to server!</button> <br><br>
 
-<div id="plotdiv"></div>    
+<div id="plotdiv"></div>   
 
 
 <!-- some text, not part of the app -->
